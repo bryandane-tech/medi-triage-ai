@@ -1,5 +1,5 @@
 # Stage 1: Build C Shared Library
-FROM python:3.11-slim AS c-builder
+FROM python:3.14-slim AS c-builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     clang \
@@ -11,7 +11,7 @@ COPY c_engine/ /build/c_engine/
 RUN clang -O3 -shared -fPIC -I c_engine/include c_engine/src/triage_engine.c -o /build/libtriage.so
 
 # Stage 2: Final Runtime Container
-FROM python:3.11-slim
+FROM python:3.14-slim
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \

@@ -1,7 +1,7 @@
 import ctypes
 import queue
 from contextlib import contextmanager
-from app.config import settings
+from app.core.config import settings
 
 class TriageResult(ctypes.Structure):
     _fields_ = [

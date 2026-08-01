@@ -12,7 +12,6 @@ services:
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - pgdata:/var/lib/postgresql/data
-      - .:/app  # or ./backend:/app depending on project root
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -36,9 +35,9 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: "postgresql://postgres:postgrespassword@postgres:5432/meditriage"
+      DATABASE_URL: "postgresql://postgres:your_password_here@postgres:5432/meditriage"
       REDIS_URL: "redis://redis:6379"
-      MASTER_KEY_B64: "+jNucoAFvAewoqnJHZJr3WKBPY9Rr4E2/+dzdyUxLSY="
+      MASTER_KEY_B64: "your_base64_master_key_here"
     depends_on:
       postgres:
         condition: service_healthy

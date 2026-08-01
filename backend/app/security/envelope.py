@@ -64,4 +64,4 @@ class MultiKeyEnvelopeEncryption:
 
         aesgcm = AESGCM(self.keys[ver])
         decrypted_bytes = aesgcm.decrypt(iv, ciphertext, None)
-        return decrypted_bytes.decode("utf-8"), verpy
+        return decrypted_bytes.decode("utf-8"), ver

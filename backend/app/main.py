@@ -9,6 +9,9 @@ from app.core.config import settings
 from app.security.envelope import MultiKeyEnvelopeEncryption
 from app.services.triage_service import TriageEngineService
 from app.metrics.prometheus import TRIAGE_PROCESSED_TOTAL
+from fastapi import FastAPI, Response
+
+
 
 class TriageRequest(BaseModel):
     phone: str = Field(..., example="+201000000000")
@@ -70,6 +73,15 @@ async def metrics():
 async def healthz():
     return {"status": "healthy"}
 
+# Silence favicon 404 requests
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return Response(status_code=204)
+
 @app.get("/")
-def read_root():
-    return {"status": "online", "service": "Medi-Triage AI API"}
+async def root():
+    return {
+        "status": "healthy",
+        "service": "MediTriage AI API",
+        "docs": "/docs"
+    }
